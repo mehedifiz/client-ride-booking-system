@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
 
        {
         Component: withAuth(Allrides), 
-        path: "allrides",
+        path: "all-rides",
       },
     ],
   },

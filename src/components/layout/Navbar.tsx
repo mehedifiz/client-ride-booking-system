@@ -24,9 +24,12 @@ import { role } from "@/constants/role";
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/all-rides", label: "All Rides", role: "PUBLIC" },
+  { href: "/book-ride", label: "Book Ride", role: role.rider },
+  { href: "/profile", label: "Profile", role: role.rider },
   { href: "/admin", label: "Dashboard", role: role.admin },
-  { href: "/driver", label: "Dashboard", role: role.driver },
-  { href: "/rider", label: "Dashboard", role: role.rider },
+  { href: "/driver", label: "Driver Dashboard", role: role.driver },
+  { href: "/rider", label: "Rider Dashboard", role: role.rider },
 ];
 
 export default function Navbar() {
@@ -40,7 +43,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="border-b">
+    <header className="sticky top-0 z-50 border-b bg-background/90 backdrop-blur-md">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">
@@ -66,22 +69,22 @@ export default function Navbar() {
                 >
                   <path
                     d="M4 12L20 12"
-                    className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
+                    className="origin-center -translate-y-[7px] transition-all duration-300 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
                   />
                   <path
                     d="M4 12H20"
-                    className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+                    className="origin-center transition-all duration-300 group-aria-expanded:rotate-45"
                   />
                   <path
                     d="M4 12H20"
-                    className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
+                    className="origin-center translate-y-[7px] transition-all duration-300 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
                   />
                 </svg>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align="start" className="w-36 p-1 md:hidden">
+            <PopoverContent align="start" className="w-40 p-1 md:hidden">
               <NavigationMenu className="max-w-none *:w-full">
-                <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
+                <NavigationMenuList className="flex-col items-start gap-2">
                   {navigationLinks.map((link, index) => (
                     <NavigationMenuItem key={index} className="w-full">
                       <NavigationMenuLink asChild className="py-1.5">
@@ -105,10 +108,10 @@ export default function Navbar() {
 
             {/* Desktop navigation */}
             <NavigationMenu className="max-md:hidden">
-              <NavigationMenuList className="gap-2">
-                {navigationLinks.map((link, index) => (
-                  <>
-                    {link.role === "PUBLIC" && (
+              <NavigationMenuList className="gap-4">
+                {navigationLinks.map((link, index) => {
+                  if (link.role === "PUBLIC" || link.role === data?.data?.role) {
+                    return (
                       <NavigationMenuItem key={index}>
                         <NavigationMenuLink
                           asChild
@@ -117,19 +120,10 @@ export default function Navbar() {
                           <Link to={link.href}>{link.label}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
-                    )}
-                    {link.role === data?.data?.role && (
-                      <NavigationMenuItem key={index}>
-                        <NavigationMenuLink
-                          asChild
-                          className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                        >
-                          <Link to={link.href}>{link.label}</Link>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    )}
-                  </>
-                ))}
+                    );
+                  }
+                  return null;
+                })}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
