@@ -12,12 +12,17 @@ import { role } from "@/constants/role";
 import { TRole } from "@/types";
 import Allrides from "@/pages/allRides/Allrides";
 import { driverSidebarItems } from "./driverSidebarItems";
+import Home from "@/pages/Home";
 
 export const router = createBrowserRouter([
   {
     Component: App,
     path: "/",
     children: [
+      {
+        path: "/",
+        element:<Home/>
+      },
       {
         Component: About,
         path: "about",
