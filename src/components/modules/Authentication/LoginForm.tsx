@@ -23,21 +23,29 @@ export function LoginForm({
   const form = useForm({
     //! For development only
     defaultValues: {
-      email: "mirhussainmurtaza@gmail.com",
-      password: "12345678",
+      email: "",
+      password: "",
     },
   });
-  const [login] = useLoginMutation();
+  const [login] = useLoginMutation()
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await login(data).unwrap();
 
       if (res.success) {
+
+        
+        
         toast.success("Logged in successfully");
         navigate("/");
+      } else {
+        toast.error("dsfdw");
+
       }
-    } catch (err) {
-      console.error(err);
+    } catch (err :any) {
+        toast.error(err.data.message);
+
+      console.log(err.data.message);
 
       if (err.data.message === "Password does not match") {
         toast.error("Invalid credentials");

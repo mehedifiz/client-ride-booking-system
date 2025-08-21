@@ -33,14 +33,20 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
-  const { data } = useUserInfoQuery(undefined);
+  const { data, isLoading } = useUserInfoQuery(undefined); // Fetch user info from server
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
-    await logout(undefined);
-    dispatch(authApi.util.resetApiState());
+    try {
+      await logout(undefined); // call logout endpoint
+      dispatch(authApi.util.resetApiState()); // reset RTK query cache
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  const userRole = data?.data?.role;
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/90 backdrop-blur-md">
@@ -65,7 +71,6 @@ export default function Navbar() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M4 12L20 12"
@@ -85,13 +90,18 @@ export default function Navbar() {
             <PopoverContent align="start" className="w-40 p-1 md:hidden">
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-2">
-                  {navigationLinks.map((link, index) => (
-                    <NavigationMenuItem key={index} className="w-full">
-                      <NavigationMenuLink asChild className="py-1.5">
-                        <Link to={link.href}>{link.label}</Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-                  ))}
+                  {navigationLinks.map((link, index) => {
+                    if (link.role === "PUBLIC" || link.role === userRole) {
+                      return (
+                        <NavigationMenuItem key={index} className="w-full">
+                          <NavigationMenuLink asChild className="py-1.5">
+                            <Link to={link.href}>{link.label}</Link>
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      );
+                    }
+                    return null;
+                  })}
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
@@ -110,7 +120,7 @@ export default function Navbar() {
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-4">
                 {navigationLinks.map((link, index) => {
-                  if (link.role === "PUBLIC" || link.role === data?.data?.role) {
+                  if (link.role === "PUBLIC" || link.role === userRole) {
                     return (
                       <NavigationMenuItem key={index}>
                         <NavigationMenuLink
@@ -132,7 +142,7 @@ export default function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           <ModeToggle />
-          {data?.data?.email ? (
+          {!isLoading && (userRole ? (
             <Button
               onClick={handleLogout}
               variant="outline"
@@ -144,7 +154,7 @@ export default function Navbar() {
             <Button asChild className="text-sm">
               <Link to="/login">Login</Link>
             </Button>
-          )}
+          ))}
         </div>
       </div>
     </header>
