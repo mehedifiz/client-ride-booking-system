@@ -1,14 +1,16 @@
-import { Button } from "@/components/ui/button"
-import { useGetTestQuery } from "./redux/features/test";
+import { Outlet } from "react-router";
+import CommonLayout from "./components/layout/CommonLayout";
+import { generateRoutes } from "./utils/generateRoutes";
+import { adminSidebarItems } from "./routes/adminSidebarItems";
 
 function App() {
-    const { data, error, isLoading } = useGetTestQuery(undefined);  // 👈 call here
-  console.log(data)
+  console.log(generateRoutes(adminSidebarItems));
+
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-    </div>
-  )
+    <CommonLayout>
+      <Outlet />
+    </CommonLayout>
+  );
 }
 
-export default App
+export default App;
