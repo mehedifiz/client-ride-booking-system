@@ -19,3 +19,12 @@ export interface ISidebarItem {
 }
 
 export type TRole = "driver" | "admin" | "rider";
+
+export const allowedTransitions: Record<IRide["status"], IRide["status"][]> = {
+  requested: ["accepted", "cancelled"],
+  accepted: ["picked_up"],
+  picked_up: ["in_transit"],
+  in_transit: ["completed"],
+  completed: [],
+  cancelled: [],
+};

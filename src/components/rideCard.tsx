@@ -2,7 +2,12 @@ import { IRide, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.a
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { allowedTransitions } from "@/types";
 
 interface RideCardProps {
   ride: IRide;
@@ -18,17 +23,25 @@ const statusColors: Record<IRide["status"], string> = {
   cancelled: "bg-red-500/10 text-red-600 dark:text-red-400",
 };
 
+
+
 const RideCard = ({ ride, onCancel }: RideCardProps) => {
   const { data } = useUserInfoQuery(undefined);
   const role = data?.data?.role;
 
-  const [updateRideStatus, { isLoading: isUpdating }] = useUpdateRideStatusMutation();
+  const [updateRideStatus, { isLoading }] = useUpdateRideStatusMutation();
 
-  const handleAccept = async () => {
+  
+  const [open, setOpen] = useState(false);
+  const [newStatus, setNewStatus] = useState<IRide["status"] | "">(allowedTransitions[ride.status][0] || "");
+  const [payment, setPayment] = useState(false);
+
+  const handleUpdate = async () => {
     try {
-      await updateRideStatus({ rideId: ride._id, status: "accepted" }).unwrap();
+      await updateRideStatus({ rideId: ride._id, status: newStatus, payment }).unwrap();
+      setOpen(false);
     } catch (err) {
-      console.error("Error accepting ride", err);
+      console.error("Failed to update status", err);
     }
   };
 
@@ -65,11 +78,8 @@ const RideCard = ({ ride, onCancel }: RideCardProps) => {
             {ride.paymentStatus.toUpperCase()}
           </span>
         </p>
-        <p className="text-xs text-muted-foreground">
-          Requested at: {new Date(ride.requestedAt).toLocaleString()}
-        </p>
 
-  
+        {/* Rider cancel button */}
         {ride.status === "requested" && role === "rider" && onCancel && (
           <Button
             variant="destructive"
@@ -79,16 +89,48 @@ const RideCard = ({ ride, onCancel }: RideCardProps) => {
             Cancel Ride
           </Button>
         )}
- 
-        {ride.status === "requested" && role === "driver" && (
-          <Button
-            variant="default"
-            className="w-full mt-3"
-            onClick={handleAccept}
-            disabled={isUpdating}
-          >
-            {isUpdating ? "Accepting..." : "Accept Ride"}
-          </Button>
+
+        {/* Driver update status button */}
+        {role === "driver" && allowedTransitions[ride.status].length > 0 && (
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button variant="default" className="w-full mt-3">
+                Update Status
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Update Ride Status</DialogTitle>
+              </DialogHeader>
+
+              <div className="flex flex-col gap-4 mt-2">
+                <Select value={newStatus} onValueChange={(val) => setNewStatus(val as IRide["status"])}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select new status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {allowedTransitions[ride.status].map((status) => (
+                      <SelectItem key={status} value={status}>
+                        {status.replace("_", " ").toUpperCase()}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <div className="flex items-center gap-2">
+                  <Checkbox checked={payment} onCheckedChange={(val) => setPayment(!!val)} />
+                  <span>Payment received (cash)</span>
+                </div>
+              </div>
+
+              <DialogFooter>
+                <Button onClick={handleUpdate} disabled={isLoading}>
+                  {isLoading ? "Updating..." : "Update"}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         )}
       </CardContent>
     </Card>
