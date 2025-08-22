@@ -65,6 +65,14 @@ export const rideApi = baseApi.injectEndpoints({
       }),
       providesTags: ["RIDE"],
     }),
+    // my rides
+    driverRides: builder.query<any, void>({
+      query: () => ({
+        url: "/ride/my-accepted",
+        method: "GET",
+      }),
+      providesTags: ["RIDE"],
+    }),
 
     // cancel
     cancelRide: builder.mutation<IRide, string>({
@@ -75,7 +83,7 @@ export const rideApi = baseApi.injectEndpoints({
       invalidatesTags: ["RIDE"],
     }),
 
-    // update ride status (for drivers)
+     
     updateRideStatus: builder.mutation<
       IRide,
       { rideId: string; status: IRide["status"] }
@@ -97,5 +105,6 @@ export const {
   useRequestRideMutation,
   useGetMyRidesQuery,
   useCancelRideMutation,
-  useUpdateRideStatusMutation, // ✅ added this
+  useUpdateRideStatusMutation,  
+  useDriverRidesQuery
 } = rideApi;

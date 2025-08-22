@@ -1,5 +1,5 @@
 import AllRides from "@/pages/allRides/Allrides";
-import Bookings from "@/pages/rider/Bookings";
+import MyAcceptedRides from "@/pages/allRides/MyAcceptedRides";
 import { ISidebarItem } from "@/types";
 
 export const driverSidebarItems: ISidebarItem[] = [
@@ -10,6 +10,11 @@ export const driverSidebarItems: ISidebarItem[] = [
         title: "All Rides",
         url: "all-rides",
         component: AllRides,
+      },
+      {
+        title: "My Accepted Rides",
+        url: "accepted-rides",
+        component: MyAcceptedRides,
       },
     ],
   },
