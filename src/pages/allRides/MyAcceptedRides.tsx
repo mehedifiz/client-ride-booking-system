@@ -1,4 +1,4 @@
-import { useDriverRidesQuery } from "@/redux/features/ride/ride.api";
+import { IRide, useDriverRidesQuery } from "@/redux/features/ride/ride.api";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import RideCard from "@/components/rideCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -7,7 +7,7 @@ const MyAcceptedRides = () => {
   const { data: userData } = useUserInfoQuery(undefined);
   const { data: rides, isLoading, isError } = useDriverRidesQuery(undefined);
 
-  console.log(rides?.data, "all rides");
+//   console.log(rides?.data, "all rides");
 
   if (isLoading) {
     return (
@@ -27,7 +27,7 @@ const MyAcceptedRides = () => {
 
   // Show all rides for the current driver
   const myRides = rides?.data?.filter(
-    (ride) =>
+    (ride :IRide) =>
       (typeof ride.driver === "string"
         ? ride.driver
         : ride.driver?._id) === userData?.data?._id
@@ -40,7 +40,7 @@ const MyAcceptedRides = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">My Rides</h1>
       <div className="grid gap-4">
-        {myRides.map((ride) => (
+        {myRides.map((ride : IRide) => (
           <RideCard key={ride._id} ride={ride} />
         ))}
       </div>

@@ -1,5 +1,3 @@
-import React from "react";
-
 const About = () => {
   return (
     <section className="w-full py-16 px-6 md:px-12 bg-background text-foreground">
@@ -20,9 +18,9 @@ const About = () => {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             Ridey is more than just a ride-sharing app — it’s a movement to make
-            transportation safe, reliable, and affordable for everyone.  
-            We connect riders and drivers seamlessly, ensuring a smooth
-            experience from pickup to destination.
+            transportation safe, reliable, and affordable for everyone. We
+            connect riders and drivers seamlessly, ensuring a smooth experience
+            from pickup to destination.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed">
             Our mission is simple: empower communities with better mobility,

@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 
 const BecomeDriver = () => {
@@ -11,9 +10,10 @@ const BecomeDriver = () => {
             Drive with <span className="text-primary">Ridey</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Join our network of trusted drivers and earn on your own schedule. 
-            With flexible hours, competitive fares, and reliable support, Ridey 
-            helps you achieve financial freedom while connecting with riders in your city.
+            Join our network of trusted drivers and earn on your own schedule.
+            With flexible hours, competitive fares, and reliable support, Ridey
+            helps you achieve financial freedom while connecting with riders in
+            your city.
           </p>
 
           <ul className="space-y-3 text-muted-foreground">

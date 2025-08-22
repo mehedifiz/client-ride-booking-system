@@ -1,13 +1,28 @@
+// @ts-nocheck
+
 import { useGetAllRidesQuery } from "@/redux/features/ride/ride.api";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import RideCard from "@/components/rideCard";
 import RideRequestModal from "@/components/RideRequestModal";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AllRides = () => {
   const { data: userData } = useUserInfoQuery(undefined);
   const { data: ridesResponse, isLoading, isError } = useGetAllRidesQuery(undefined);
 console.log(ridesResponse)
-  if (isLoading) return <div>Loading...</div>;
+   if (isLoading) {
+    return (
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">Loading rides...</h1>
+        <div className="grid gap-4">
+          {Array.from({ length: 3 }).map((_, idx) => (
+            <Skeleton key={idx} className="h-40 w-full rounded-lg" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (isError) return <div>Error fetching rides</div>;
 
   const rides = ridesResponse?.data || [];
