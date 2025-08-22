@@ -1,5 +1,6 @@
 import Allrides from "@/pages/allRides/Allrides";
 import Myrides from "@/pages/allRides/Myrides";
+ 
 import { ISidebarItem } from "@/types";
 
 export const riderSidebarItems: ISidebarItem[] = [
@@ -16,6 +17,7 @@ export const riderSidebarItems: ISidebarItem[] = [
         url: "/rider/myrides",
         component: Myrides,
       },
+     
     ],
   },
 ];

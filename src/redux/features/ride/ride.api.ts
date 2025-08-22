@@ -66,6 +66,14 @@ export const rideApi = baseApi.injectEndpoints({
       providesTags: ["RIDE"],
     }),
     // my rides
+    earningsHistory: builder.query({
+      query: () => ({
+        url: "/ride/earningsHistory",
+        method: "GET",
+      }),
+      
+    }),
+    // my rides
     driverRides: builder.query<any, void>({
       query: () => ({
         url: "/ride/my-accepted",
@@ -86,15 +94,19 @@ export const rideApi = baseApi.injectEndpoints({
      
     updateRideStatus: builder.mutation<
       IRide,
-      { rideId: string; status: IRide["status"] }
+      { rideId: string; status: IRide["status"] ; payment?: boolean }
     >({
-      query: ({ rideId, status }) => ({
+      query: ({ rideId, status ,payment}) => ({
         url: `/ride/updateStatus/${rideId}`,
         method: "POST",
-        data: { status },
+        data: { status , payment },
       }),
       invalidatesTags: ["RIDE"],
     }),
+
+
+
+    
   }),
 
   overrideExisting: false,
@@ -106,5 +118,6 @@ export const {
   useGetMyRidesQuery,
   useCancelRideMutation,
   useUpdateRideStatusMutation,  
-  useDriverRidesQuery
+  useDriverRidesQuery,
+  useEarningsHistoryQuery,
 } = rideApi;
