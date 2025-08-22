@@ -1,4 +1,5 @@
 
+import AllRides from "@/pages/allRides/Allrides";
 import { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -16,13 +17,13 @@ export const adminSidebarItems: ISidebarItem[] = [
     ],
   },
   {
-    title: "Tour Management",
+    title: "Rides",
     items: [
-      // {
-      //   title: "Add Tour Type",
-      //   url: "/admin/add-tour-type",
-      //   component: AddTourType,
-      // },
+    {
+        title: "All Rides",
+        url: "all-rides",
+        component: AllRides,
+      },
     
     ],
   },

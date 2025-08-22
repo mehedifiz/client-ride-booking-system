@@ -22,25 +22,33 @@ import { role } from "@/constants/role";
 
 // Navigation links array
 const navigationLinks = [
+ 
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/all-rides", label: "All Rides", role: "PUBLIC" },
-  { href: "/book-ride", label: "Book Ride", role: role.rider },
-  { href: "/profile", label: "Profile", role: role.rider },
+
+  // All Rides
+  { href: "/admin/all-rides", label: "All Rides", role: role.admin },
+  { href: "/driver/all-rides", label: "All Rides", role: role.driver },
+  { href: "/rider/all-rides", label: "All Rides", role: role.rider },
+
+  // Other dashboard-specific routes
+  { href: "/all-rides", label: "Book Ride", role: role.rider },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/driver", label: "Driver Dashboard", role: role.driver },
   { href: "/rider", label: "Rider Dashboard", role: role.rider },
+ 
+
 ];
 
 export default function Navbar() {
-  const { data, isLoading } = useUserInfoQuery(undefined); // Fetch user info from server
+  const { data, isLoading } = useUserInfoQuery(undefined);  
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
     try {
-      await logout(undefined); // call logout endpoint
-      dispatch(authApi.util.resetApiState()); // reset RTK query cache
+      await logout(undefined);  
+      dispatch(authApi.util.resetApiState());  
     } catch (err) {
       console.error(err);
     }
