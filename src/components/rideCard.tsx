@@ -1,7 +1,4 @@
-import {
-  IRide,
-  useUpdateRideStatusMutation,
-} from "@/redux/features/ride/ride.api";
+import { IRide, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -70,8 +67,7 @@ const RideCard = ({ ride, onCancel }: RideCardProps) => {
       }).unwrap();
 
       setOpen(false);
-
-      setNewStatus("");
+      // setNewStatus("");
       setPayment(false);
     } catch (err) {
       console.error("Failed to update status", err);
@@ -116,16 +112,35 @@ const RideCard = ({ ride, onCancel }: RideCardProps) => {
           </span>
         </p>
 
+        {/* Cancel Ride with Confirmation */}
         {ride.status === "requested" && role === "rider" && onCancel && (
-          <Button
-            variant="destructive"
-            className="w-full mt-3"
-            onClick={() => onCancel(ride._id)}
-          >
-            Cancel Ride
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="destructive" className="w-full mt-3">
+                Cancel Ride
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Cancel Ride</DialogTitle>
+              </DialogHeader>
+              <p className="text-sm text-gray-600">
+                Are you sure you want to cancel this ride?
+              </p>
+              <DialogFooter>
+               
+                <Button
+                  variant="destructive"
+                  onClick={() => onCancel(ride._id)}
+                >
+                  Yes, Cancel
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         )}
 
+        {/* Driver: Update Status */}
         {role === "driver" && allowedTransitions[ride.status].length > 0 && (
           <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>

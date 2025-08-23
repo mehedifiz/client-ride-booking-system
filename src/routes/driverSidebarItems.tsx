@@ -19,8 +19,8 @@ export const driverSidebarItems: ISidebarItem[] = [
       },
 
         {
-       title: "Rider dashboard",
-        url: "rider/dashboard",
+       title: "Driver dashboard",
+        url: "dashboard",
         component: EarningsHistory,
       },
     ],
