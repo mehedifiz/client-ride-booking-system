@@ -1,35 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-
-// Ride type
-export interface IRide {
-  _id: string;
-  rider: {
-    _id: string;
-    name: string;
-    email: string;
-  };
-  driver?: {
-    _id: string;
-    name?: string;
-    email?: string;
-  };
-  status:
-    | "requested"
-    | "accepted"
-    | "picked_up"
-    | "in_transit"
-    | "completed"
-    | "cancelled";
-  pickupLocation: { lat: number; lng: number };
-  destinationLocation: { lat: number; lng: number };
-  price: number;
-  paymentStatus: "paid" | "unpaid";
-  paymentMethod?: "online" | "cash";
-  requestedAt: string;
-  acceptedAt?: string;
-  pickedUpAt?: string;
-  completedAt?: string;
-}
+import { IRide, TResponse } from "@/types";
 
 export const rideApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -71,7 +41,13 @@ export const rideApi = baseApi.injectEndpoints({
         url: "/ride/earningsHistory",
         method: "GET",
       }),
-      
+    }),
+    // my rides
+    s: builder.query({
+      query: () => ({
+        url: "/ride/earningsHistory",
+        method: "GET",
+      }),
     }),
     // my rides
     driverRides: builder.query<any, void>({
@@ -91,22 +67,35 @@ export const rideApi = baseApi.injectEndpoints({
       invalidatesTags: ["RIDE"],
     }),
 
-     
     updateRideStatus: builder.mutation<
       any,
-      { rideId: string; status: IRide["status"] ; payment?: boolean }
+      { rideId: string; status: IRide["status"]; payment?: boolean }
     >({
-      query: ({ rideId, status ,payment}) => ({
+      query: ({ rideId, status, payment }) => ({
         url: `/ride/updateStatus/${rideId}`,
         method: "POST",
-        data: { status , payment },
+        data: { status, payment },
       }),
       invalidatesTags: ["RIDE"],
     }),
 
-
-
-    
+    getRidesAdmin: builder.query<
+      TResponse<IRide[]>,
+      {
+        status?: string;
+        driverId?: string;
+        riderId?: string;
+        from?: string;
+        to?: string;
+      } | void
+    >({
+      query: (filters) => ({
+        url: "/ride/getRidersAdmin",
+        method: "GET",
+        params: filters,
+      }),
+      providesTags: ["RIDE"],
+    }),
   }),
 
   overrideExisting: false,
@@ -117,7 +106,8 @@ export const {
   useRequestRideMutation,
   useGetMyRidesQuery,
   useCancelRideMutation,
-  useUpdateRideStatusMutation,  
+  useUpdateRideStatusMutation,
   useDriverRidesQuery,
   useEarningsHistoryQuery,
+  useGetRidesAdminQuery,
 } = rideApi;

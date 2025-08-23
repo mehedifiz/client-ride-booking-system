@@ -39,3 +39,43 @@ export interface IUser {
   isSuspend?: boolean;
   availability?: string;
 }
+
+// Ride type
+export interface IRide {
+  _id: string;
+  rider: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  driver?: {
+    _id: string;
+    name?: string;
+    email?: string;
+  };
+  status:
+    | "requested"
+    | "accepted"
+    | "picked_up"
+    | "in_transit"
+    | "completed"
+    | "cancelled";
+  pickupLocation: { lat: number; lng: number };
+  destinationLocation: { lat: number; lng: number };
+  price: number;
+  paymentStatus: "paid" | "unpaid";
+  paymentMethod?: "online" | "cash";
+  requestedAt: string;
+  acceptedAt?: string;
+  pickedUpAt?: string;
+  completedAt?: string;
+}
+
+
+export interface TResponse<T> {
+    statusCode: number;
+    success: boolean;
+    message: string;
+    data: T;
+    
+}

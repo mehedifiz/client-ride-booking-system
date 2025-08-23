@@ -1,9 +1,20 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGetStatsQuery } from "@/redux/features/stats/stat.api";
 
 export default function Analytics() {
   const { data, isLoading, isError } = useGetStatsQuery();
 
-  if (isLoading) return <p className="text-center mt-10">Loading stats...</p>;
+  if (isLoading) {
+    return (
+      <div className="container mx-auto p-4">
+        <div className="grid gap-4">
+          {Array.from({ length: 3 }).map((_, idx) => (
+            <Skeleton key={idx} className="h-40 w-full rounded-lg" />
+          ))}
+        </div>
+      </div>
+    );
+  }
   if (isError) return <p className="text-center mt-10 text-red-600">Failed to load stats</p>;
 
   const stats = data?.data;

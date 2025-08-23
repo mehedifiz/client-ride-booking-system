@@ -1,4 +1,5 @@
 
+import AdminAllRides from "@/pages/Admin/AdminAllrides";
 import AllUsers from "@/pages/Admin/AllUsers";
 import AllRides from "@/pages/allRides/Allrides";
 import MyPtofile from "@/pages/MyPtofile";
@@ -29,7 +30,7 @@ export const adminSidebarItems: ISidebarItem[] = [
     {
         title: "All Rides",
         url: "all-rides",
-        component: AllRides,
+        component: AdminAllRides,
       },
     
     ],
