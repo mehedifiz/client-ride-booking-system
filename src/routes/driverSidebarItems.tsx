@@ -1,6 +1,7 @@
 import AllRides from "@/pages/allRides/Allrides";
 import MyAcceptedRides from "@/pages/allRides/MyAcceptedRides";
 import EarningsHistory from "@/pages/driver/earningsHistory";
+import MyPtofile from "@/pages/MyPtofile";
 import { ISidebarItem } from "@/types";
 
 export const driverSidebarItems: ISidebarItem[] = [
@@ -22,6 +23,11 @@ export const driverSidebarItems: ISidebarItem[] = [
        title: "Driver dashboard",
         url: "dashboard",
         component: EarningsHistory,
+      },
+       {
+        title: "My Profile",
+        url: "driver/profile",
+        component: MyPtofile,
       },
     ],
   },

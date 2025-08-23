@@ -1,5 +1,6 @@
 
 import AllRides from "@/pages/allRides/Allrides";
+import MyPtofile from "@/pages/MyPtofile";
 import { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -13,6 +14,11 @@ export const adminSidebarItems: ISidebarItem[] = [
         title: "dashboard",
         url: "/admin/dashboard",
         component: Analytics,
+      },
+      {
+        title: "My Profile",
+        url: "/admin/profile",
+        component: MyPtofile,
       },
     ],
   },

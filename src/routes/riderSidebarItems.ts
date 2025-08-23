@@ -1,5 +1,6 @@
 import Allrides from "@/pages/allRides/Allrides";
 import Myrides from "@/pages/allRides/Myrides";
+import MyProfile from "@/pages/MyPtofile";
  
 import { ISidebarItem } from "@/types";
 
@@ -16,6 +17,12 @@ export const riderSidebarItems: ISidebarItem[] = [
         title: "My Rides",
         url: "/rider/myrides",
         component: Myrides,
+      },
+     
+      {
+        title: "My Profile",
+        url: "/rider/profile",
+        component: MyProfile,
       },
      
     ],
