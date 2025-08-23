@@ -28,3 +28,14 @@ export const allowedTransitions: Record<IRide["status"], IRide["status"][]> = {
   completed: [],
   cancelled: [],
 };
+
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  role: "admin" | "driver" | "rider";
+  isBlocked: boolean;
+  isSuspend?: boolean;
+  availability?: string;
+}
