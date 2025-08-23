@@ -1,6 +1,6 @@
 import AllRides from "@/pages/allRides/Allrides";
 import MyAcceptedRides from "@/pages/allRides/MyAcceptedRides";
-import EarningsHistory from "@/pages/rider/earningsHistory";
+import EarningsHistory from "@/pages/driver/earningsHistory";
 import { ISidebarItem } from "@/types";
 
 export const driverSidebarItems: ISidebarItem[] = [

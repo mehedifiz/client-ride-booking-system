@@ -21,6 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { allowedTransitions } from "@/types";
+import { toast } from "sonner";
 
 interface RideCardProps {
   ride: IRide;
@@ -57,22 +58,25 @@ const RideCard = ({ ride, onCancel }: RideCardProps) => {
     }
   };
 
-  const handleUpdate = async () => {
-    if (!newStatus) return;
-    try {
-      await updateRideStatus({
-        rideId: ride._id,
-        status: newStatus,
-        payment,
-      }).unwrap();
+const handleUpdate = async () => {
+  if (!newStatus) return;
+  try {
+    const response = await updateRideStatus({
+      rideId: ride._id,
+      status: newStatus,
+      payment,
+    }).unwrap();
 
-      setOpen(false);
-      // setNewStatus("");
-      setPayment(false);
-    } catch (err) {
-      console.error("Failed to update status", err);
-    }
-  };
+    toast.success(response.message  || "Status updated successfully");
+
+    setOpen(false);
+    setPayment(false);
+  } catch (err: any) {
+    toast.error(err?.data?.message || "Failed to update status");
+    console.error("Failed to update status", err);
+  }
+};
+
 
   return (
     <Card className="w-full shadow-md hover:shadow-lg my-2 transition">

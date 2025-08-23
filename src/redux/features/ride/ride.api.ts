@@ -93,7 +93,7 @@ export const rideApi = baseApi.injectEndpoints({
 
      
     updateRideStatus: builder.mutation<
-      IRide,
+      any,
       { rideId: string; status: IRide["status"] ; payment?: boolean }
     >({
       query: ({ rideId, status ,payment}) => ({

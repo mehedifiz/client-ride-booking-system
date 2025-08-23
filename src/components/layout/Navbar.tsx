@@ -33,7 +33,7 @@ const navigationLinks = [
 
   // Other dashboard-specific routes
   { href: "/rider/all-rides", label: "Book Ride", role: role.rider },
-  { href: "/admin", label: "Dashboard", role: role.admin },
+  { href: "/admin/dashboard", label: "Dashboard", role: role.admin },
   { href: "/driver/dashboard", label: "Driver Dashboard", role: role.driver },
   // { href: "/rider/dashboard", label: "Rider Dashboard", role: role.rider },
  

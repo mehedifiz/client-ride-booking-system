@@ -1,4 +1,5 @@
 import { useEarningsHistoryQuery } from "@/redux/features/ride/ride.api";
+import DriverAvailability from "./DriverAvailability ";
 
 const EarningsHistory = () => {
   const { data, isLoading, isError } = useEarningsHistoryQuery(undefined);
@@ -17,7 +18,7 @@ const EarningsHistory = () => {
   }
 
   if (isError) {
-    return <p className="text-center mt-10 text-red-600">Failed to load earnings.</p>;
+    return <p className="text-center mt-10 text-red-600">{data.message}</p>;
   }
 
   return (
@@ -25,6 +26,8 @@ const EarningsHistory = () => {
       <h1 className="text-2xl font-bold mb-4">Earnings History</h1>
 
       <div className="mb-6">
+
+        <DriverAvailability/>
         <p>
           <span className="font-medium">Total Earnings:</span>{" "}
           <span className="text-green-600 font-semibold">${data?.totalEarnings || 0}</span>
