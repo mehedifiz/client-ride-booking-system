@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -24,31 +24,33 @@ interface RideForm {
 const RideRequestModal: FC = () => {
   const [requestRide, { isLoading }] = useRequestRideMutation(undefined);
   const { register, handleSubmit, reset } = useForm<RideForm>();
+  const [isOpen, setIsOpen] = useState(false); // control modal open state
 
-const onSubmit = async (data: RideForm) => {
-  try {
-    await requestRide({
-      pickupLocation: {
-        lat: Number(data.pickupLat),
-        lng: Number(data.pickupLng),
-      },
-      destinationLocation: {
-        lat: Number(data.destinationLat),
-        lng: Number(data.destinationLng),
-      },
-      price: Number(data.price),
-    }).unwrap();
+  const onSubmit = async (data: RideForm) => {
+    try {
+      await requestRide({
+        pickupLocation: {
+          lat: Number(data.pickupLat),
+          lng: Number(data.pickupLng),
+        },
+        destinationLocation: {
+          lat: Number(data.destinationLat),
+          lng: Number(data.destinationLng),
+        },
+        price: Number(data.price),
+      }).unwrap();
 
-    toast.success("Ride requested successfully!");
-    reset();
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to request ride.");
-  }
-};
+      toast.success("Ride requested successfully!");
+      reset();
+      setIsOpen(false); // close modal on success
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to request ride.");
+    }
+  };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className="mb-5">Request Ride</Button>
       </DialogTrigger>
