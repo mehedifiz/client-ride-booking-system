@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+# Ridey - Ride Booking & Management Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ridey is a modern web application for ride booking and management. It allows riders to request rides, drivers to manage rides, and admins to oversee the entire platform with detailed analytics and controls.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### Rider
+- Request rides with pickup and destination locations.
+- View ride history and track real-time ride status.
+- Cancel rides before they are accepted.
+- Payment options: **Online** and **Offline (cash)**.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Driver
+- View assigned rides.
+- Update ride status in real-time.
+- Track earnings history.
+- Accept or reject rides assigned by admin.
 
-- Configure the top-level `parserOptions` property like this:
+### Admin
+- View all rides with advanced filtering by date, status, driver, or rider.
+- Manage users: block/unblock, suspend/approve drivers.
+- View detailed ride information, including driver/rider info, timestamps, and ride status timeline.
+- Dashboard with overall statistics and earnings overview.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### General
+- Responsive UI built with **Tailwind CSS** and **DaisyUI**.
+- Modern UI components: cards, badges, dialogs, accordions.
+- FAQ section to provide quick answers for users.
+- Notifications using **Sonner**.
+- Smooth animations with **Framer Motion**.
+
+---
+
+## Tech Stack
+
+- **Frontend:** React, TypeScript, Tailwind CSS, DaisyUI, React Router.
+- **Backend:** Node.js, Express.js, MongoDB.
+- **State Management:** Redux Toolkit + RTK Query.
+- **Authentication:** Firebase / JWT (as applicable).
+- **Payments:** Online & offline options supported.
+
+---
+
+## Installation
+
+1. Install dependencies:
+
+```bash
+npm install
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```bash
+npm run dev
