@@ -24,7 +24,7 @@ interface RideForm {
 const RideRequestModal: FC = () => {
   const [requestRide, { isLoading }] = useRequestRideMutation(undefined);
   const { register, handleSubmit, reset } = useForm<RideForm>();
-  const [isOpen, setIsOpen] = useState(false); // control modal open state
+  const [isOpen, setIsOpen] = useState(false); 
 
   const onSubmit = async (data: RideForm) => {
     try {
@@ -42,7 +42,7 @@ const RideRequestModal: FC = () => {
 
       toast.success("Ride requested successfully!");
       reset();
-      setIsOpen(false); // close modal on success
+      setIsOpen(false); 
     } catch (error) {
       console.error(error);
       toast.error("Failed to request ride.");
