@@ -28,7 +28,7 @@ export const rideApi = baseApi.injectEndpoints({
     }),
 
     // my rides
-    getMyRides: builder.query<IRide[], void>({
+    getMyRides: builder.query<TResponse<IRide[]>, void>({
       query: () => ({
         url: "/ride/myRides",
         method: "GET",
@@ -50,7 +50,7 @@ export const rideApi = baseApi.injectEndpoints({
       }),
     }),
     // my rides
-    driverRides: builder.query<any, void>({
+    driverRides: builder.query<TResponse<IRide[]>, void>({
       query: () => ({
         url: "/ride/my-accepted",
         method: "GET",
@@ -96,6 +96,16 @@ export const rideApi = baseApi.injectEndpoints({
       }),
       providesTags: ["RIDE"],
     }),
+
+
+     getRideDetails: builder.query<any, string>({
+      query: (rideId) => ({
+        url: `/ride/details/${rideId}`,
+        method: "GET",
+      }),
+      providesTags: ["RIDE"],
+    }), 
+
   }),
 
   overrideExisting: false,
@@ -110,4 +120,5 @@ export const {
   useDriverRidesQuery,
   useEarningsHistoryQuery,
   useGetRidesAdminQuery,
+  useGetRideDetailsQuery
 } = rideApi;

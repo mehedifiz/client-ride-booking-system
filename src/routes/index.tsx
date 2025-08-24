@@ -13,6 +13,7 @@ import { TRole } from "@/types";
 import Allrides from "@/pages/allRides/Allrides";
 import { driverSidebarItems } from "./driverSidebarItems";
 import Home from "@/pages/Home";
+import RideDetails from "@/pages/allRides/RideDetails";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
         Component: withAuth(Allrides), 
         path: "all-rides",
       },
+      {
+        Component: withAuth(RideDetails),
+        path: "rides/:rideId",
+      }
     ],
   },
   {

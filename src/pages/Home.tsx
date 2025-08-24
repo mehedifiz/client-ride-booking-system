@@ -1,5 +1,6 @@
 import BecomeDriver from "@/components/modules/home/BecomeDrive";
 import Benefits from "@/components/modules/home/Benefits";
+import { Faq, Faq1 } from "@/components/modules/home/Faq";
 import Hero from "@/components/modules/home/Hero";
 import Howitworks from "@/components/modules/home/Howitworks";
 import Testimonials from "@/components/modules/home/Testimonials";
@@ -16,6 +17,8 @@ const Home = () => {
             <Testimonials/>
 
             <BecomeDriver/>
+
+            <Faq/>
         </div>
     );
 };

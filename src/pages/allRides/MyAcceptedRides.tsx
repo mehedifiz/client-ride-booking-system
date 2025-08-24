@@ -1,8 +1,9 @@
-import { IRide, useDriverRidesQuery, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
+import {  useDriverRidesQuery, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import RideCard from "@/components/rideCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner"; 
+import { IRide } from "@/types";
 const MyAcceptedRides = () => {
   const { data: userData } = useUserInfoQuery(undefined);
   const { data: rides, isLoading, isError, refetch } = useDriverRidesQuery(undefined);

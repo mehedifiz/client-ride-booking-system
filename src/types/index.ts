@@ -20,15 +20,7 @@ export interface ISidebarItem {
 
 export type TRole = "driver" | "admin" | "rider";
 
-export const allowedTransitions: Record<IRide["status"], IRide["status"][]> = {
-  requested: ["accepted"],
-  accepted: ["picked_up"],
-  picked_up: ["in_transit"],
-  in_transit: ["completed"],
-  completed: [],
-  cancelled: [],
-};
-
+ 
 
 export interface IUser {
   _id: string;
@@ -79,3 +71,21 @@ export interface TResponse<T> {
     data: T;
     
 }
+
+export  type RideStatus =
+  | "requested"
+  | "accepted"
+  | "picked_up"
+  | "in_transit"
+  | "completed"
+  | "cancelled";
+
+
+  export const allowedTransitions: Record<RideStatus, RideStatus[]> = {
+  requested: ["accepted"],
+  accepted: ["picked_up", "cancelled"],
+  picked_up: ["in_transit"],
+  in_transit: ["completed"],
+  completed: [],
+  cancelled: [],
+};

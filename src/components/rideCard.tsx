@@ -1,4 +1,4 @@
-import { IRide, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
+import {  useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,13 +20,15 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
-import { allowedTransitions } from "@/types";
+import { allowedTransitions, IRide } from "@/types";
 import { toast } from "sonner";
 
 interface RideCardProps {
   ride: IRide;
   onCancel?: (id: string) => void;
+  children?: React.ReactNode;   
 }
+
 
 const statusColors: Record<IRide["status"], string> = {
   requested: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
