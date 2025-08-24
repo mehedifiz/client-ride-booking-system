@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useGetRidesAdminQuery } from "@/redux/features/ride/ride.api";
 import { IRide } from "@/types";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+ 
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router";
+import RideCard from "@/components/rideCard";
 
 const AdminAllRides = () => {
   const [statusFilter, setStatusFilter] = useState<string>("");
@@ -59,34 +59,11 @@ const AdminAllRides = () => {
 
 <div className="space-y-4">
   {rides?.data?.map((ride: IRide) => (
-    <Card key={ride._id} className="shadow-md hover:shadow-lg">
-      <CardHeader className="flex justify-between items-center">
-        <CardTitle>Ride ID: {ride._id}</CardTitle>
-        <Badge
-          className={`${
-            ride.status === "completed"
-              ? "bg-green-500/10 text-green-600"
-              : ride.status === "cancelled"
-              ? "bg-red-500/10 text-red-600"
-              : "bg-blue-500/10 text-blue-600"
-          } px-3 py-1 rounded-full text-xs font-semibold`}
-        >
-          {ride.status.toUpperCase()}
-        </Badge>
-      </CardHeader>
+   <Link to={`/rides/${ride._id}`} key={ride._id}> 
 
-      <CardContent className="space-y-1 text-sm">
-        <p><strong>Rider:</strong> {ride.rider?.name} ({ride.rider?.email})</p>
-        <p><strong>Driver:</strong> {ride.driver?.name || "-"} ({ride.driver?.email || "-"})</p>
-        <p><strong>Pickup:</strong> {ride.pickupLocation.lat}, {ride.pickupLocation.lng}</p>
-        <p><strong>Destination:</strong> {ride.destinationLocation.lat}, {ride.destinationLocation.lng}</p>
-        <p><strong>Price:</strong> ${ride.price}</p>
-
-        <Link to={`/rides/${ride._id}`}>
-          <button className="btn btn-sm btn-outline mt-2">View Details</button>
-        </Link>
-      </CardContent>
-    </Card>
+   <RideCard key={ride._id} ride={ride} />
+   
+   </Link>
   ))}
 </div>
 

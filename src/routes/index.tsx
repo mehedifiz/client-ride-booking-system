@@ -14,6 +14,7 @@ import Allrides from "@/pages/allRides/Allrides";
 import { driverSidebarItems } from "./driverSidebarItems";
 import Home from "@/pages/Home";
 import RideDetails from "@/pages/allRides/RideDetails";
+import Contact from "@/pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         Component: About,
         path: "about",
+      },
+      {
+        Component: Contact,
+        path: "Contact",
       },
 
        {

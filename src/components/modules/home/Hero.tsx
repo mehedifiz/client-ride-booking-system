@@ -19,7 +19,7 @@ const Hero = () => {
 
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Button asChild size="lg">
-              <Link to="/allrides">Book a Ride</Link>
+              <Link to="/rider/all-rides">Book a Ride</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link to="/register">Become a Driver</Link>
